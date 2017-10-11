@@ -17,13 +17,13 @@ public class Main extends Application {
         Scene scene = new Scene(root,800,600);
 
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Penis");
+        this.primaryStage.setTitle("Test");
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
 
         Controller controller = loader.getController();
-//        controller.setStage(this.primaryStage);
-//        controller.init();
+        controller.setStage(this.primaryStage);
+        controller.init();
     }
 
 

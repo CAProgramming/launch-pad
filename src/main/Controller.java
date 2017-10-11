@@ -7,5 +7,7 @@ public class Controller {
     void setStage(Stage stage){
         this.stage=stage;
     }
-    void init(){}
+    void init(){
+        System.out.println("controller initialized");
+    }
     }
