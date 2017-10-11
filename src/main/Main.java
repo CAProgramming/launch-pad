@@ -22,8 +22,8 @@ public class Main extends Application {
         this.primaryStage.show();
 
         Controller controller = loader.getController();
-//        controller.setStage(this.primaryStage);
-//        controller.init();
+        controller.setStage(this.primaryStage);
+        controller.init();
     }
 
 
