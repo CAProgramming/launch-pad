@@ -1,4 +1,4 @@
-# Launch Pad
+# Launchpad
 Java GUI for a raspberry pi powered launchpad
 
 ### Tasks
