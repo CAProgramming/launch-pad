@@ -19,11 +19,9 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Test");
         this.primaryStage.setScene(scene);
-        this.primaryStage.show();
-
         Controller controller = loader.getController();
-        controller.setStage(this.primaryStage);
-        controller.init();
+        controller.init(loader.getRoot(), scene, this.primaryStage);
+        this.primaryStage.show();
     }
 
 
