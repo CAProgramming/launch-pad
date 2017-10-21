@@ -75,7 +75,7 @@ public class SampleHandler implements LineListener {
     }
 
     public static void main(String[] args) {
-        String audioFilePath = "/Users/jnamgung/Downloads/Stress Reliever - Im About to Whip Somebodys Ass.wav";
+        String audioFilePath = "./resources/test.wav";
         SampleHandler player = new SampleHandler();
         player.play(audioFilePath);
     }
