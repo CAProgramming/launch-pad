@@ -1,0 +1,10 @@
+* {
+    //-fx-background-color: #3f3f3f;
+}
+
+.button {
+    //-fx-text-fill: aqua;
+    -fx-color: aqua;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}

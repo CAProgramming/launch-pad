@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public class Main extends Application {
 
     private Stage primaryStage;
@@ -14,7 +16,13 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("main-window.fxml"));
         Parent root = loader.load();
-        Scene scene = new Scene(root,800,600);
+        Scene scene = new Scene(root,400,400);
+
+        File f = new File("main/style.css");
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add(f.getPath());
+        System.out.println(scene.getStylesheets());
+
 
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Test");

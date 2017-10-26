@@ -5,13 +5,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="_1_1" mnemonicParsing="false" onAction="#fire_1_1" prefHeight="100.0" prefWidth="100.0" text="1,1" />
+                  <Button styleClass="button" fx:id="_1_1" mnemonicParsing="false" onAction="#fire_1_1" prefHeight="100.0" prefWidth="100.0" text="1,1" />
                   <Button fx:id="_2_1" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="2,1" />
                   <Button fx:id="_3_1" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="3,1" />
                   <Button fx:id="_4_1" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="4,1" />

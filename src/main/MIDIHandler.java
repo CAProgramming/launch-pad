@@ -17,11 +17,13 @@ public class MIDIHandler {
             mChannels[0].noteOn(60, 200);
             mChannels[0].noteOn(64, 100);
             mChannels[0].noteOn(67, 100);
-            try { Thread.sleep(5000);
+            try { Thread.sleep(1000);
             } catch( InterruptedException e ) { }
-            mChannels[0].noteOff(60);
+            //mChannels[0].noteOff(60);
             mChannels[0].noteOff(64);
             mChannels[0].noteOff(67);
+            try { Thread.sleep(1500);
+            } catch( InterruptedException e ) { }
 
         } catch (MidiUnavailableException e) {}
     }
