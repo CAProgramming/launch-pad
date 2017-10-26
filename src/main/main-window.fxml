@@ -11,7 +11,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button styleClass="button" fx:id="_1_1" mnemonicParsing="false" onAction="#fire_1_1" prefHeight="100.0" prefWidth="100.0" text="1,1" />
+                  <Button styleClass="button" fx:id="_1_1" mnemonicParsing="false" onMousePressed="#fire_1_1" onMouseReleased="#ceasefire_1_1" prefHeight="100.0" prefWidth="100.0" text="1,1" />
                   <Button fx:id="_2_1" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="2,1" />
                   <Button fx:id="_3_1" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="3,1" />
                   <Button fx:id="_4_1" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="4,1" />

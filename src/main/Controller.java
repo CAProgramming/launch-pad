@@ -15,7 +15,9 @@ public class Controller {
     private Stage stage;
     private Node root;
     private Scene scene;
+    private MIDIHandler midi;
 
+    public enum Mode { MIDI, SAMPLE };
 
     @FXML
     Button _1_1;
@@ -23,16 +25,22 @@ public class Controller {
 
     @FXML
     void fire_1_1() {
+        arm(_1_1);
         System.out.println("1, 1 fired");
     }
+    @FXML
+    void ceasefire_1_1() {
+        disarm(_1_1);
+        System.out.println("1, 1 ceased fire");
+    }
 
-    void init(Node root, Scene scene, Stage stage) {
+    void init(Node root, Scene scene, Stage stage, MIDIHandler midi) {
         this.root = root;
         this.stage = stage;
         this.scene = scene;
+        this.midi = midi;
         createEventListeners(scene);
         System.out.println("controller initialized");
-
     }
 
     private void createEventListeners(Scene scene) {
@@ -75,8 +83,10 @@ public class Controller {
         b.arm();
         b.getStyleClass().add("armed");
         b.fire();
+        midi.noteOn(60, 155);
     }
     void disarm(Button b) {
         b.getStyleClass().remove("armed");
+        midi.noteOff(60);
     }
 }
