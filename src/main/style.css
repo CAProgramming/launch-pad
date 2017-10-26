@@ -4,7 +4,10 @@
 
 .button {
     //-fx-text-fill: aqua;
-    -fx-color: aqua;
+    //-fx-color: aqua;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
+}
+.button:pressed, .button.armed {
+    -fx-color: aqua;
 }

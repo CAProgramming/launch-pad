@@ -41,7 +41,7 @@ public class Controller {
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
                     case Q:
-                        _1_1.fire();
+                        arm(_1_1);
                         break;
                     case W:
                         break;
@@ -53,6 +53,30 @@ public class Controller {
             }
 
         });
+        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                switch (event.getCode()) {
+                    case Q:
+                        disarm(_1_1);
+                        break;
+                    case W:
+                        break;
+                    case E:
+                        break;
+                    case R:
+                        break;
+                }
+            }
+        });
+    }
 
+    void arm(Button b) {
+        b.arm();
+        b.getStyleClass().add("armed");
+        b.fire();
+    }
+    void disarm(Button b) {
+        b.getStyleClass().remove("armed");
     }
 }
