@@ -42,7 +42,7 @@ public class Controller {
         this.midi = midi;
        
         createEventListeners(scene);
-        _0_0.init(midi, 72, 155);
+        _0_0.init(midi, 60, 155);
         System.out.println("controller initialized");
     }
 
