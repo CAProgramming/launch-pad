@@ -8,8 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-
 import java.awt.event.KeyListener;
+
 
 public class Controller {
     private Stage stage;
@@ -20,18 +20,19 @@ public class Controller {
     public enum Mode { MIDI, SAMPLE };
 
     @FXML
-    Button _1_1;
+    Button _0_0;
 
 
     @FXML
-    void fire_1_1() {
-        arm(_1_1);
-        System.out.println("1, 1 fired");
+    void fire_0_0() {
+        arm(_0_0);
+        System.out.println("0, 0 fired");
     }
+
     @FXML
-    void ceasefire_1_1() {
-        disarm(_1_1);
-        System.out.println("1, 1 ceased fire");
+    void ceasefire_0_0() {
+        disarm(_0_0);
+        System.out.println("0, 0 ceased fire");
     }
 
     void init(Node root, Scene scene, Stage stage, MIDIHandler midi) {
@@ -49,7 +50,7 @@ public class Controller {
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
                     case Q:
-                        arm(_1_1);
+                        arm(_0_0);
                         break;
                     case W:
                         break;
@@ -66,7 +67,7 @@ public class Controller {
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
                     case Q:
-                        disarm(_1_1);
+                        disarm(_0_0);
                         break;
                     case W:
                         break;
