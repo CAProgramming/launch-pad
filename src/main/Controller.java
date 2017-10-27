@@ -20,18 +20,18 @@ public class Controller {
     public enum Mode { MIDI, SAMPLE };
 
     @FXML
-    Button _0_0;
+    MidiCtrlButton _0_0;
 
 
     @FXML
     void fire_0_0() {
-        arm(_0_0);
+        _0_0.disArm();
         System.out.println("0, 0 fired");
     }
 
     @FXML
     void ceasefire_0_0() {
-        disarm(_0_0);
+        _0_0.disArm();
         System.out.println("0, 0 ceased fire");
     }
 
@@ -41,6 +41,7 @@ public class Controller {
         this.scene = scene;
         this.midi = midi;
         createEventListeners(scene);
+        _0_0.init(midi, 60, 155);
         System.out.println("controller initialized");
     }
 
@@ -50,7 +51,7 @@ public class Controller {
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
                     case Q:
-                        arm(_0_0);
+                        _0_0.arm();
                         break;
                     case W:
                         break;
@@ -67,7 +68,7 @@ public class Controller {
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
                     case Q:
-                        disarm(_0_0);
+                        _0_0.disArm();
                         break;
                     case W:
                         break;
@@ -78,16 +79,5 @@ public class Controller {
                 }
             }
         });
-    }
-
-    void arm(Button b) {
-        b.arm();
-        b.getStyleClass().add("armed");
-        b.fire();
-        midi.noteOn(60, 155);
-    }
-    void disarm(Button b) {
-        b.getStyleClass().remove("armed");
-        midi.noteOff(60);
     }
 }
