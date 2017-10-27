@@ -16,7 +16,7 @@ public class Controller {
     private Node root;
     private Scene scene;
     private MIDIHandler midi;
-    private boolean qOn;
+
     public enum Mode { MIDI, SAMPLE };
 
     @FXML
@@ -25,7 +25,7 @@ public class Controller {
 
     @FXML
     void fire_0_0() {
-        _0_0.disArm();
+        _0_0.arm();
         System.out.println("0, 0 fired");
     }
 
@@ -40,6 +40,7 @@ public class Controller {
         this.stage = stage;
         this.scene = scene;
         this.midi = midi;
+       
         createEventListeners(scene);
         _0_0.init(midi, 72, 155);
         System.out.println("controller initialized");
@@ -51,9 +52,9 @@ public class Controller {
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
                     case Q:
-                    	if(!qOn) {
+                    
                         _0_0.arm();
-                        qOn=true;}
+                       
                         break;
                     case W:
                         break;
@@ -71,7 +72,7 @@ public class Controller {
                 switch (event.getCode()) {
                     case Q:
                         _0_0.disArm();
-                        qOn=false;
+                        
                         break;
                     case W:
                         break;
