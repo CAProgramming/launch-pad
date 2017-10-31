@@ -29,17 +29,17 @@
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <MidiCtrlButton styleClass="button" fx:id="_2_0" mnemonicParsing="false" onMousePressed="#fire_2_0" onMouseReleased="#ceasefire_2_0" prefHeight="100.0" prefWidth="100.0" text="2,0" />
-                  <MidiCtrlButton fx:id="_2_1" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="2,1" />
-                  <MidiCtrlButton fx:id="_2_2" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="2,2" />
-                  <MidiCtrlButton fx:id="_2_3" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="2,3" />
+                  <MidiCtrlButton styleClass="button" fx:id="_2_1" mnemonicParsing="false" onMousePressed="#fire_2_1" onMouseReleased="#ceasefire_2_1" prefHeight="100.0" prefWidth="100.0" text="2,1" />
+                  <MidiCtrlButton styleClass="button" fx:id="_2_2" mnemonicParsing="false" onMousePressed="#fire_2_2" onMouseReleased="#ceasefire_2_2" prefHeight="100.0" prefWidth="100.0" text="2,2" />
+                  <MidiCtrlButton styleClass="button" fx:id="_2_3" mnemonicParsing="false" onMousePressed="#fire_2_3" onMouseReleased="#ceasefire_2_3" prefHeight="100.0" prefWidth="100.0" text="2,3" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <MidiCtrlButton fx:id="_3_0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="3,0" />
-                  <MidiCtrlButton fx:id="_3_1" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="3,1" />
-                  <MidiCtrlButton fx:id="_3_2" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="3,2" />
-                  <MidiCtrlButton fx:id="_3_3" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="3,3" />
+                  <MidiCtrlButton styleClass="button" fx:id="_3_0" mnemonicParsing="false" onMousePressed="#fire_3_0" onMouseReleased="#ceasefire_3_0" prefHeight="100.0" prefWidth="100.0" text="3,0" />
+                  <MidiCtrlButton styleClass="button" fx:id="_3_1" mnemonicParsing="false" onMousePressed="#fire_3_1" onMouseReleased="#ceasefire_3_1" prefHeight="100.0" prefWidth="100.0" text="3,1" />
+                  <MidiCtrlButton styleClass="button" fx:id="_3_2" mnemonicParsing="false" onMousePressed="#fire_3_2" onMouseReleased="#ceasefire_3_2" prefHeight="100.0" prefWidth="100.0" text="3,2" />
+                  <MidiCtrlButton styleClass="button" fx:id="_3_3" mnemonicParsing="false" onMousePressed="#fire_3_3" onMouseReleased="#ceasefire_3_3" prefHeight="100.0" prefWidth="100.0" text="3,3" />
                </children>
             </HBox>
          </children>
