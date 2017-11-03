@@ -9,9 +9,15 @@ import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import java.awt.event.KeyListener;
-import java.util.concurrent.ExecutionException;
 
+import javax.sound.midi.ShortMessage;
+import java.awt.event.KeyListener;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.io.*;
 
 public class Controller {
     private Stage stage;
@@ -60,28 +66,58 @@ public class Controller {
         this.stage = stage;
         this.scene = scene;
         this.midi = midi;
+
+        String line;
+        HashMap<String, short[]> config = new HashMap<String, short[]>();
+        boolean comment = false;
+        try {
+            System.out.println(System.getProperty("user.dir"));
+            File configfile = new File("src/config.txt");
+            FileReader fileReader = new FileReader(configfile);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            while((line = bufferedReader.readLine()) != null) {
+                if(line.equals("/*")) {
+                    comment = true;
+                } else if(line.equals("*/")) {
+                    comment = false;
+                } else if(comment == false && line.length() == 9) {
+                    String[] message = line.split(":");
+                    short[] vals = new short[2];
+                    vals[0] = Short.parseShort(message[1].split(",")[0]);
+                    vals[1] = Short.parseShort(message[1].split(",")[1]);
+                    config.put(message[0], vals);
+                }
+
+            }
+
+            // Always close files.
+            bufferedReader.close();
+        }
+        catch(FileNotFoundException ex) {ex.printStackTrace();}
+        catch(IOException ex) {ex.printStackTrace();}
        
         createEventListeners(scene);
 
-        _0_0.init(midi, 60, 220, 0);
-        _0_1.init(midi, 61, 220, 1);
-        _0_2.init(midi, 62, 220, 2);
-        _0_3.init(midi, 63, 220, 3);
+        _0_0.init(midi, config.get("0.0")[1], 220, config.get("0.0")[0]);
+        _0_1.init(midi, config.get("0.1")[1], 220, config.get("0.1")[0]);
+        _0_2.init(midi, config.get("0.2")[1], 220, config.get("0.2")[0]);
+        _0_3.init(midi, config.get("0.3")[1], 220, config.get("0.3")[0]);
 
-        _1_0.init(midi, 64, 220, 4);
-        _1_1.init(midi, 65, 220, 5);
-        _1_2.init(midi, 66, 220,6 );
-        _1_3.init(midi, 67, 220, 28);
+        _1_0.init(midi, config.get("1.0")[1], 220, config.get("1.0")[0]);
+        _1_1.init(midi, config.get("1.1")[1], 220, config.get("1.1")[0]);
+        _1_2.init(midi, config.get("1.2")[1], 220, config.get("1.2")[0]);
+        _1_3.init(midi, config.get("1.3")[1], 220, config.get("1.3")[0]);
 
-        _2_0.init(midi, 68, 220, 56);
-        _2_1.init(midi, 69, 220, 100);
-        _2_2.init(midi, 70, 220, 37);
-        _2_3.init(midi, 71, 220, 78);
+        _2_0.init(midi, config.get("2.0")[1], 220, config.get("2.0")[0]);
+        _2_1.init(midi, config.get("2.1")[1], 220, config.get("2.1")[0]);
+        _2_2.init(midi, config.get("2.2")[1], 220, config.get("2.2")[0]);
+        _2_3.init(midi, config.get("2.3")[1], 220, config.get("2.3")[0]);
 
-        _3_0.init(midi, 72, 220, 22);
-        _3_1.init(midi, 73, 220, 45);
-        _3_2.init(midi, 74, 220, 67);
-        _3_3.init(midi, 75, 220, 31);
+        _3_0.init(midi, config.get("3.0")[1], 220, config.get("3.0")[0]);
+        _3_1.init(midi, config.get("3.1")[1], 220, config.get("3.1")[0]);
+        _3_2.init(midi, config.get("3.2")[1], 220, config.get("3.2")[0]);
+        _3_3.init(midi, config.get("3.3")[1], 220, config.get("3.3")[0]);
         System.out.println("controller initialized");
     }
 

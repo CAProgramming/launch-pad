@@ -17,16 +17,12 @@ public class MIDIHandler {
             instr = midiSynth.getDefaultSoundbank().getInstruments();
             mChannels = midiSynth.getChannels();
 
-            midiSynth.loadInstrument(instr[73]);
-            // load instrument onto channel 0
-            midiSynth.getChannels()[0].programChange(127);
-
-
         } catch (MidiUnavailableException e) {}
     }
 
     void noteOn(int noteNumber, int velocity, int instrument) {
-        midiSynth.getChannels()[0].programChange(instrument);mChannels[0].noteOn(noteNumber, velocity);
+        midiSynth.getChannels()[0].programChange(instrument);
+        mChannels[0].noteOn(noteNumber, velocity);
     }
     void noteOff(int noteNumber) {
         mChannels[0].noteOff(noteNumber);
