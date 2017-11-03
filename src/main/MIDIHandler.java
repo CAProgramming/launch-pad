@@ -5,7 +5,6 @@ import javax.sound.midi.*;
 public class MIDIHandler {
 
     Synthesizer midiSynth;
-    Instrument[] instr;
     MidiChannel[] mChannels;
 
 
@@ -13,8 +12,6 @@ public class MIDIHandler {
         try{
             midiSynth = MidiSystem.getSynthesizer();
             midiSynth.open();
-
-            instr = midiSynth.getDefaultSoundbank().getInstruments();
             mChannels = midiSynth.getChannels();
 
         } catch (MidiUnavailableException e) {}

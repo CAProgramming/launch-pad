@@ -81,7 +81,7 @@ public class Controller {
                     comment = true;
                 } else if(line.equals("*/")) {
                     comment = false;
-                } else if(comment == false && line.length() == 9) {
+                } else if(comment == false && line.length() > 4) {
                     String[] message = line.split(":");
                     short[] vals = new short[2];
                     vals[0] = Short.parseShort(message[1].split(",")[0]);
