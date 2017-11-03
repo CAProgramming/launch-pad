@@ -63,25 +63,25 @@ public class Controller {
        
         createEventListeners(scene);
 
-        _0_2.init(midi, 62, 220);
-        _0_1.init(midi, 61, 220);
-        _0_0.init(midi, 60, 220);
-        _0_3.init(midi, 63, 220);
+        _0_0.init(midi, 60, 220, 0);
+        _0_1.init(midi, 61, 220, 1);
+        _0_2.init(midi, 62, 220, 2);
+        _0_3.init(midi, 63, 220, 3);
 
-        _1_0.init(midi, 64, 220);
-        _1_1.init(midi, 65, 220);
-        _1_2.init(midi, 66, 220);
-        _1_3.init(midi, 67, 220);
+        _1_0.init(midi, 64, 220, 4);
+        _1_1.init(midi, 65, 220, 5);
+        _1_2.init(midi, 66, 220,6 );
+        _1_3.init(midi, 67, 220, 28);
 
-        _2_0.init(midi, 68, 220);
-        _2_1.init(midi, 69, 220);
-        _2_2.init(midi, 70, 220);
-        _2_3.init(midi, 71, 220);
+        _2_0.init(midi, 68, 220, 56);
+        _2_1.init(midi, 69, 220, 100);
+        _2_2.init(midi, 70, 220, 37);
+        _2_3.init(midi, 71, 220, 78);
 
-        _3_0.init(midi, 72, 220);
-        _3_1.init(midi, 73, 220);
-        _3_2.init(midi, 74, 220);
-        _3_3.init(midi, 75, 220);
+        _3_0.init(midi, 72, 220, 22);
+        _3_1.init(midi, 73, 220, 45);
+        _3_2.init(midi, 74, 220, 67);
+        _3_3.init(midi, 75, 220, 31);
         System.out.println("controller initialized");
     }
 
