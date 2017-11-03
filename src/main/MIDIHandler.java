@@ -8,6 +8,7 @@ public class MIDIHandler {
     Instrument[] instr;
     MidiChannel[] mChannels;
 
+
     public MIDIHandler() {
         try{
             midiSynth = MidiSystem.getSynthesizer();
@@ -16,7 +17,10 @@ public class MIDIHandler {
             instr = midiSynth.getDefaultSoundbank().getInstruments();
             mChannels = midiSynth.getChannels();
 
-            midiSynth.loadInstrument(instr[0]);
+            midiSynth.loadInstrument(instr[73]);
+            // load instrument onto channel 0
+            midiSynth.getChannels()[0].programChange(108);
+
 
         } catch (MidiUnavailableException e) {}
     }
