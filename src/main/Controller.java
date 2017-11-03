@@ -1,5 +1,6 @@
 package main;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -9,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import java.awt.event.KeyListener;
+import java.util.concurrent.ExecutionException;
 
 
 public class Controller {
@@ -53,200 +55,6 @@ public class Controller {
     MidiCtrlButton _3_3;
 
 
-    @FXML
-    void fire_0_0() {
-        _0_0.arm();
-        System.out.println("0, 0 fired");
-    }
-
-    @FXML
-    void fire_0_1() {
-        _0_1.arm();
-        System.out.println("0, 1 fired");
-    }
-
-    @FXML
-    void fire_0_2() {
-        _0_2.arm();
-        System.out.println("0, 2 fired");
-    }
-
-    @FXML
-    void fire_0_3() {
-        _0_3.arm();
-        System.out.println("0, 3 fired");
-    }
-
-    @FXML
-    void fire_1_0() {
-        _1_0.arm();
-        System.out.println("1, 0 fired");
-    }
-
-    @FXML
-    void fire_1_1() {
-        _1_1.arm();
-        System.out.println("1, 1 fired");
-    }
-
-    @FXML
-    void fire_1_2() {
-        _1_2.arm();
-        System.out.println("1, 2 fired");
-    }
-
-    @FXML
-    void fire_1_3() {
-        _1_3.arm();
-        System.out.println("1, 3 fired");
-    }
-
-    @FXML
-    void fire_2_0() {
-        _2_0.arm();
-        System.out.println("2, 0 fired");
-    }
-
-    @FXML
-    void fire_2_1() {
-        _2_1.arm();
-        System.out.println("2, 1 fired");
-    }
-
-    @FXML
-    void fire_2_2() {
-        _2_2.arm();
-        System.out.println("2, 2 fired");
-    }
-
-    @FXML
-    void fire_2_3() {
-        _2_3.arm();
-        System.out.println("2, 3 fired");
-    }
-
-    @FXML
-    void fire_3_0() {
-        _3_0.arm();
-        System.out.println("3, 0 fired");
-    }
-
-    @FXML
-    void fire_3_1() {
-        _3_1.arm();
-        System.out.println("3, 1 fired");
-    }
-
-    @FXML
-    void fire_3_2() {
-        _3_2.arm();
-        System.out.println("3, 2 fired");
-    }
-
-    @FXML
-    void fire_3_3() {
-        _3_3.arm();
-        System.out.println("3, 3 fired");
-    }
-
-
-
-    @FXML
-    void ceasefire_0_0() {
-        _0_0.disArm();
-        System.out.println("0, 0 ceased fire");
-    }
-
-    @FXML
-    void ceasefire_0_1() {
-        _0_1.disArm();
-        System.out.println("0, 1 ceased fire");
-    }
-
-    @FXML
-    void ceasefire_0_2() {
-        _0_2.disArm();
-        System.out.println("0, 2 ceased fire");
-    }
-
-    @FXML
-    void ceasefire_0_3() {
-        _0_3.disArm();
-        System.out.println("0, 3 ceased fire");
-    }
-
-    @FXML
-    void ceasefire_1_0() {
-        _1_0.disArm();
-        System.out.println("1, 0 ceased fire");
-    }
-
-    @FXML
-    void ceasefire_1_1() {
-        _1_1.disArm();
-        System.out.println("1, 1 ceased fire");
-    }
-
-    @FXML
-    void ceasefire_1_2() {
-        _1_2.disArm();
-        System.out.println("1, 2 ceased fire");
-    }
-
-    @FXML
-    void ceasefire_1_3() {
-        _1_3.disArm();
-        System.out.println("1, 3 ceased fire");
-    }
-
-    @FXML
-    void ceasefire_2_0() {
-        _2_0.disArm();
-        System.out.println("2, 0 ceased fire");
-    }
-
-    @FXML
-    void ceasefire_2_1() {
-        _2_1.disArm();
-        System.out.println("2, 1 ceased fire");
-    }
-
-    @FXML
-    void ceasefire_2_2() {
-        _2_2.disArm();
-        System.out.println("2, 2 ceased fire");
-    }
-
-    @FXML
-    void ceasefire_2_3() {
-        _2_3.disArm();
-        System.out.println("2, 3 ceased fire");
-    }
-
-    @FXML
-    void ceasefire_3_0() {
-        _3_0.disArm();
-        System.out.println("3, 0 ceased fire");
-    }
-
-    @FXML
-    void ceasefire_3_1() {
-        _3_1.disArm();
-        System.out.println("3, 1 ceased fire");
-    }
-
-    @FXML
-    void ceasefire_3_2() {
-        _3_2.disArm();
-        System.out.println("3, 2 ceased fire");
-    }
-
-    @FXML
-    void ceasefire_3_3() {
-        _3_3.disArm();
-        System.out.println("3, 3 ceased fire");
-    }
-
     void init(Node root, Scene scene, Stage stage, MIDIHandler midi) {
         this.root = root;
         this.stage = stage;
@@ -254,6 +62,7 @@ public class Controller {
         this.midi = midi;
        
         createEventListeners(scene);
+
         _0_2.init(midi, 62, 220);
         _0_1.init(midi, 61, 220);
         _0_0.init(midi, 60, 220);
@@ -281,34 +90,108 @@ public class Controller {
             @Override
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
-                    case Q:
-                    
+                    case DIGIT1:
                         _0_0.arm();
-                       
+                        break;
+                    case DIGIT2:
+                        _0_1.arm();
+                        break;
+                    case DIGIT3:
+                        _0_2.arm();
+                        break;
+                    case DIGIT4:
+                        _0_3.arm();
+                        break;
+                    case Q:
+                        _1_0.arm();
                         break;
                     case W:
+                        _1_1.arm();
                         break;
                     case E:
+                        _1_2.arm();
                         break;
                     case R:
+                        _1_3.arm();
+                        break;
+                    case A:
+                        _2_0.arm();
+                        break;
+                    case S:
+                        _2_1.arm();
+                        break;
+                    case D:
+                        _2_2.arm();
+                        break;
+                    case F:
+                        _2_3.arm();
+                        break;
+                    case Z:
+                        _3_0.arm();
+                        break;
+                    case X:
+                        _3_1.arm();
+                        break;
+                    case C:
+                        _3_2.arm();
+                        break;
+                    case V:
+                        _3_3.arm();
                         break;
                 }
             }
-
         });
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
-                    case Q:
+                    case DIGIT1:
                         _0_0.disArm();
-                        
+                        break;
+                    case DIGIT2:
+                        _0_1.disArm();
+                        break;
+                    case DIGIT3:
+                        _0_2.disArm();
+                        break;
+                    case DIGIT4:
+                        _0_3.disArm();
+                        break;
+                    case Q:
+                        _1_0.disArm();
                         break;
                     case W:
+                        _1_1.disArm();
                         break;
                     case E:
+                        _1_2.disArm();
                         break;
                     case R:
+                        _1_3.disArm();
+                        break;
+                    case A:
+                        _2_0.disArm();
+                        break;
+                    case S:
+                        _2_1.disArm();
+                        break;
+                    case D:
+                        _2_2.disArm();
+                        break;
+                    case F:
+                        _2_3.disArm();
+                        break;
+                    case Z:
+                        _3_0.disArm();
+                        break;
+                    case X:
+                        _3_1.disArm();
+                        break;
+                    case C:
+                        _3_2.disArm();
+                        break;
+                    case V:
+                        _3_3.disArm();
                         break;
                 }
             }
