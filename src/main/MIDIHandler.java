@@ -2,7 +2,7 @@ package main;
 
 import javax.sound.midi.*;
 
-public class MIDIHandler {
+public class MIDIHandler{
 
     Synthesizer midiSynth;
     MidiChannel[] mChannels;
