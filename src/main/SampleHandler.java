@@ -1,83 +1,89 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
-public class SampleHandler implements LineListener {
-    /**
-     * this flag indicates whether the playback completes or not.
-     */
-    boolean playCompleted;
+public class SampleHandler implements Handler<String> {
+    private Map<String, Thread> threads;
 
-    /**
-     * Play a given audio file.
-     *
-     * @param audioFilePath Path of the audio file.
-     */
-    void play(String audioFilePath) {
-        File audioFile = new File(audioFilePath);
-
-        try {
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-
-            AudioFormat format = audioStream.getFormat();
-
-            DataLine.Info info = new DataLine.Info(Clip.class, format);
-
-            Clip audioClip = (Clip) AudioSystem.getLine(info);
-
-            audioClip.addLineListener(this);
-
-            audioClip.open(audioStream);
-
-            audioClip.start();
-
-            while (!playCompleted) {
-                // wait for the playback completes
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
-            }
-
-            audioClip.close();
-
-        } catch (UnsupportedAudioFileException ex) {
-            System.out.println("The specified audio file is not supported.");
-            ex.printStackTrace();
-        } catch (LineUnavailableException ex) {
-            System.out.println("Audio line for playing back is unavailable.");
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            System.out.println("Error playing the audio file.");
-            ex.printStackTrace();
-        }
-
+    public SampleHandler() {
+        super();
+        threads = new HashMap<>();
     }
 
-    /**
-     * Listens to the START and STOP events of the audio line.
-     */
+    public List<String> getPlayingSamples(){
+        List<String> playingSamples = new ArrayList<>();
+        playingSamples.addAll(threads.keySet());
+        return playingSamples;
+    }
+
     @Override
-    public void update(LineEvent event) {
-        LineEvent.Type type = event.getType();
+    public void play(Map<String, String> params) {
+        if (!params.isEmpty() && params.size() == 3 && !threads.containsKey(params.get("button_id"))) {
+            Runnable runnable = new Runnable() {
+                public void run() {
+                    try {
+                        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(params.get("filepath")));
+                        Clip clip = AudioSystem.getClip();
+                        clip.open(audioInputStream);
+                        clip.setFramePosition(0);
 
-        if (type == LineEvent.Type.START) {
-            System.out.println("Playback started.");
+                        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                        gainControl.setValue(Float.parseFloat(params.get("gain")));
 
-        } else if (type == LineEvent.Type.STOP) {
-            playCompleted = true;
-            System.out.println("Playback completed.");
+                        long duration = clip.getMicrosecondLength() / 1000;
+                        final int interval = 500;
+
+                        clip.start();
+
+                        for (long ts = 0; ts < duration; ts += interval) {
+                            if (Thread.currentThread().isInterrupted()) {
+                                clip.stop();
+                                return;
+                            }
+                            try {
+                                Thread.sleep(interval);
+                            } catch (InterruptedException e) {
+                                System.out.println("Sound-playing thread interrupted.");
+                            }
+                        }
+                        return;
+                    } catch (UnsupportedAudioFileException e) {
+                        System.out.println("Unsupported audio format.");
+                    } catch (LineUnavailableException e) {
+                        System.err.println(e.getMessage());
+                    } catch (IOException e) {
+                        System.err.println(e.getMessage());
+                    }
+                }
+            };
+
+            threads.put(params.get("button_id"), new Thread(runnable, "playingThread"));
+            threads.get(params.get("button_id")).start();
+        } else {
+            System.out.println("Parameters were not usable.");
         }
 
     }
 
-    public static void main(String[] args) {
-        String audioFilePath = "./resources/test.wav";
-        SampleHandler player = new SampleHandler();
-        player.play(audioFilePath);
+    @Override
+    public void stop(Map<String, String> params) {
+        threads.get(params.get("button_id")).interrupt();
     }
-}
 
+//    //**************************************
+//    public static void main(String[] args) throws Exception {
+//        SampleHandler test1 = new SampleHandler();
+//        Map<String, String> params = new HashMap<>();
+//        params.put("filepath", "./resources/test.wav");
+//        params.put("gain", Float.toString((float) 5.0));
+//        params.put("button_id", "1");
+//        test1.play(params);
+//        test1.stop(params);
+//    }
+}

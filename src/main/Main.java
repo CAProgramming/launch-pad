@@ -24,13 +24,11 @@ public class Main extends Application {
         scene.getStylesheets().add(f.getPath());
         System.out.println(scene.getStylesheets());
 
-        MIDIHandler midi = new MIDIHandler();
-
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Test");
         this.primaryStage.setScene(scene);
         Controller controller = loader.getController();
-        controller.init(loader.getRoot(), scene, this.primaryStage, midi);
+        controller.init(loader.getRoot(), scene, this.primaryStage);
         this.primaryStage.show();
     }
 
