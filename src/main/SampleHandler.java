@@ -43,14 +43,12 @@ public class SampleHandler implements Handler<Object> {
                         clip.start();
 
                         for (long ts = 0; ts < duration; ts += interval) {
-                            if (Thread.currentThread().isInterrupted()) {
-                                clip.stop();
-                                return;
-                            }
                             try {
                                 Thread.sleep(interval);
                             } catch (InterruptedException e) {
                                 System.out.println("Sound-playing thread interrupted.");
+                                clip.stop();
+                                return;
                             }
                         }
                         return;
@@ -75,6 +73,7 @@ public class SampleHandler implements Handler<Object> {
     @Override
     public void stop(Map<String, Object> params) {
         threads.get(params.get("buttonID")).interrupt();
+        threads.remove(params.get("buttonID"));
     }
 
 //    //**************************************

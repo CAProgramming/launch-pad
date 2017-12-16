@@ -19,12 +19,14 @@ public class ConfigHandler {
         config = new File(path);
     }
 
-    private List<Object> parseLine(String line) {
+    private List<Object> parseLine(String buttonID, String line) {
         List<Object> config = new ArrayList<>();
+        config.add(buttonID);
         if(line.charAt(0) == '\"') {
             config.add(this.sampleHandler);
-            line = line.replace("\"", "");
-            config.add(line);
+            String[] lineParse = line.substring(1).split("\"");
+            config.add(lineParse[0]);
+            config.add(Float.parseFloat(lineParse[1]));
         } else {
             config.add(this.midiHandler);
             String[] lineParse = line.split(",", 0);
@@ -60,7 +62,7 @@ public class ConfigHandler {
                     message[1] = Character.toString(message[0].charAt(2));
                     message[0] = Character.toString(message[0].charAt(0));
                     config.get(Short.parseShort(message[0])).add(Short.parseShort(message[1]),
-                            parseLine(line.split(":")[1]));
+                            parseLine(line.split(":")[0], line.split(":")[1]));
                 }
             }
             // Always close files.

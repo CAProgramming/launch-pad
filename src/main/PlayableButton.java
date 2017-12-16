@@ -42,21 +42,21 @@ public class PlayableButton extends Button {
                 disArm();
             }
         });
-        if (params.get(0).getClass().equals(MIDIHandler.class)) {
+        if (params.get(1).getClass().equals(MIDIHandler.class)) {
             if (params.size() == 4) {
-                this.buttonID = (String) params.get(1);
-                this.init((MIDIHandler) params.get(0), (short) params.get(2), (short) params.get(3));
+                this.buttonID = (String) params.get(0);
+                this.init((MIDIHandler) params.get(1), (short) params.get(2), (short) params.get(3));
             } else if (params.size() == 3) {
-                this.buttonID = (String) params.get(1);
-                this.init((MIDIHandler) params.get(0), (short) params.get(2));
+                this.buttonID = (String) params.get(0);
+                this.init((MIDIHandler) params.get(1), (short) params.get(2));
             } else {
                 System.out.println("You passed the wrong parameters for a " + handler.getClass() + "!");
                 this.handler = null;
             }
         } else {
             if (params.size() == 4) {
-                this.buttonID = (String) params.get(1);
-                this.init((SampleHandler) params.get(0), (String) params.get(2), (float) params.get(3));
+                this.buttonID = (String) params.get(0);
+                this.init((SampleHandler) params.get(1), (String) params.get(2), (float) params.get(3));
             } else {
                 System.out.println("You passed the wrong parameters for a " + handler.getClass() + "!");
                 this.handler = null;
@@ -158,6 +158,9 @@ public class PlayableButton extends Button {
             params.put("noteNum", (int) this.noteNum);
             handler.stop(params);
         } else {
+            Map<String, Object> params = new HashMap<>();
+            params.put("buttonID", this.buttonID);
+            handler.stop(params);
         }
 
         System.out.println("disarmed");
