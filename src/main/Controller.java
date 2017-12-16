@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import java.util.List;
 
 public class Controller {
     private Stage stage;
@@ -50,29 +51,29 @@ public class Controller {
         this.root = root;
         this.stage = stage;
         this.scene = scene;
-        ConfigHandler configHandler = new ConfigHandler();
-        PlayableButton[][] config = configHandler.loadConfig();
         createEventListeners(scene);
+        ConfigHandler configHandler = new ConfigHandler();
+        List<List<List<Object>>> config = configHandler.loadConfig();
 
-        _0_0 = config[0][0];
-        _0_1 = config[0][1];
-        _0_2 = config[0][2];
-        _0_3 = config[0][3];
+        _0_0.init(config.get(0).get(0));
+        _0_1.init(config.get(0).get(1));
+        _0_2.init(config.get(0).get(2));
+        _0_3.init(config.get(0).get(3));
 
-        _1_0 = config[1][0];
-        _1_1 = config[1][1];
-        _1_2 = config[1][2];
-        _1_3 = config[1][3];
+        _1_0.init(config.get(1).get(0));
+        _1_1.init(config.get(1).get(1));
+        _1_2.init(config.get(1).get(2));
+        _1_3.init(config.get(1).get(3));
 
-        _2_0 = config[2][0];
-        _2_1 = config[2][1];
-        _2_2 = config[2][2];
-        _2_3 = config[2][3];
+        _2_0.init(config.get(2).get(0));
+        _2_1.init(config.get(2).get(1));
+        _2_2.init(config.get(2).get(2));
+        _2_3.init(config.get(2).get(3));
 
-        _3_0 = config[3][0];
-        _3_1 = config[3][1];
-        _3_2 = config[3][2];
-        _3_3 = config[3][3];
+        _3_0.init(config.get(3).get(0));
+        _3_1.init(config.get(3).get(1));
+        _3_2.init(config.get(3).get(2));
+        _3_3.init(config.get(3).get(3));
         System.out.println("controller initialized");
     }
 

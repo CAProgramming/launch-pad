@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -17,10 +18,32 @@ public class PlayableButton extends Button {
     private short instrument;
     private short velocity;
 
+    public PlayableButton() {
+        super();
+    }
+
+    public void init(List<Object> params) {
+        if (params.get(0).getClass().equals(MIDIHandler.class)) {
+            if (params.size() == 3) {
+                this.init((Handler) params.get(0), (short) params.get(1), (short) params.get(2));
+            } else if (params.size() == 2) {
+                this.init((Handler) params.get(0), (short) params.get(1));
+            } else {
+                System.out.println("You passed the wrong parameters for a " + handler.getClass() + "!");
+                this.handler = null;
+            }
+        } else {
+            if (params.size() == 2) {
+                this.init((Handler) params.get(0), (String) params.get(1));
+            } else {
+                System.out.println("You passed the wrong parameters for a " + handler.getClass() + "!");
+                this.handler = null;
+            }
+        }
+    }
 
     // ************************************* MIDI constructors
-    public PlayableButton(Handler handler, short noteNum) {
-        super();
+    public void init(Handler handler, short noteNum) {
         if (handler.getClass().equals(MIDIHandler.class)) {
             this.handler = handler;
             this.midi = true;
@@ -49,8 +72,7 @@ public class PlayableButton extends Button {
         }
     }
 
-    public PlayableButton(Handler handler, short noteNum, short instrument) {
-        super();
+    public void init(Handler handler, short noteNum, short instrument) {
         if (handler.getClass().equals(MIDIHandler.class)) {
             this.handler = handler;
             this.midi = true;
@@ -82,8 +104,7 @@ public class PlayableButton extends Button {
 
 
     // ************************************* Audio sample constructors
-    public PlayableButton(Handler handler, String samplePath) {
-        super();
+    public void init(Handler handler, String samplePath) {
         if (handler.getClass().equals(SampleHandler.class)) {
 
         } else {
@@ -92,6 +113,7 @@ public class PlayableButton extends Button {
         }
     }
     // *************************************
+
 
     // MIDI helper functions
     public void setVelocity(short velocity) {
@@ -108,10 +130,10 @@ public class PlayableButton extends Button {
             this.isOn = true;
 
             if (this.midi == true) {
-                Map<String, Short> params = new HashMap<>();
-                params.put("noteNum", this.noteNum);
-                params.put("instrument", this.instrument);
-                params.put("velocity", this.velocity);
+                Map<String, Integer> params = new HashMap<>();
+                params.put("noteNum", (int) this.noteNum);
+                params.put("instrument", (int) this.instrument);
+                params.put("velocity", (int) this.velocity);
                 handler.play(params);
             } else {
             }
@@ -126,8 +148,8 @@ public class PlayableButton extends Button {
         this.isOn = false;
 
         if (this.midi == true) {
-            Map<String, Short> params = new HashMap<>();
-            params.put("noteNum", this.noteNum);
+            Map<String, Integer> params = new HashMap<>();
+            params.put("noteNum", (int) this.noteNum);
             handler.stop(params);
         } else {
         }
