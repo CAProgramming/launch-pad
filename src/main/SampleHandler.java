@@ -32,7 +32,6 @@ public class SampleHandler implements Handler<Object> {
                                 new File((String) params.get("filepath")));
                         Clip clip = AudioSystem.getClip();
                         clip.open(audioInputStream);
-                        clip.setFramePosition(0);
 
                         FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                         gainControl.setValue((float) params.get("gain"));
@@ -40,18 +39,20 @@ public class SampleHandler implements Handler<Object> {
                         long duration = clip.getMicrosecondLength() / 1000;
                         final int interval = 500;
 
-                        clip.start();
+                        while(true) {
+                            clip.setFramePosition(0);
+                            clip.start();
 
-                        for (long ts = 0; ts < duration; ts += interval) {
-                            try {
-                                Thread.sleep(interval);
-                            } catch (InterruptedException e) {
-                                System.out.println("Sound-playing thread interrupted.");
-                                clip.stop();
-                                return;
+                            for (long ts = 0; ts < duration; ts += interval) {
+                                try {
+                                    Thread.sleep(interval);
+                                } catch (InterruptedException e) {
+                                    System.out.println("Sound-playing thread interrupted.");
+                                    clip.stop();
+                                    return;
+                                }
                             }
                         }
-                        return;
                     } catch (UnsupportedAudioFileException e) {
                         System.out.println("Unsupported audio format.");
                     } catch (LineUnavailableException e) {
