@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class PlayableButton extends Button {
+    private String buttonID;
+
     private boolean midi;
     private Handler handler;
     private boolean isOn;
@@ -18,23 +20,43 @@ public class PlayableButton extends Button {
     private short instrument;
     private short velocity;
 
+    // Audio sample fields
+    private String filepath;
+    private float gain;
+
     public PlayableButton() {
         super();
     }
 
     public void init(List<Object> params) {
+        this.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                arm();
+            }
+        });
+
+        this.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                disArm();
+            }
+        });
         if (params.get(0).getClass().equals(MIDIHandler.class)) {
-            if (params.size() == 3) {
-                this.init((Handler) params.get(0), (short) params.get(1), (short) params.get(2));
-            } else if (params.size() == 2) {
-                this.init((Handler) params.get(0), (short) params.get(1));
+            if (params.size() == 4) {
+                this.buttonID = (String) params.get(1);
+                this.init((MIDIHandler) params.get(0), (short) params.get(2), (short) params.get(3));
+            } else if (params.size() == 3) {
+                this.buttonID = (String) params.get(1);
+                this.init((MIDIHandler) params.get(0), (short) params.get(2));
             } else {
                 System.out.println("You passed the wrong parameters for a " + handler.getClass() + "!");
                 this.handler = null;
             }
         } else {
-            if (params.size() == 2) {
-                this.init((Handler) params.get(0), (String) params.get(1));
+            if (params.size() == 4) {
+                this.buttonID = (String) params.get(1);
+                this.init((SampleHandler) params.get(0), (String) params.get(2), (float) params.get(3));
             } else {
                 System.out.println("You passed the wrong parameters for a " + handler.getClass() + "!");
                 this.handler = null;
@@ -43,7 +65,7 @@ public class PlayableButton extends Button {
     }
 
     // ************************************* MIDI constructors
-    public void init(Handler handler, short noteNum) {
+    public void init(MIDIHandler handler, short noteNum) {
         if (handler.getClass().equals(MIDIHandler.class)) {
             this.handler = handler;
             this.midi = true;
@@ -53,26 +75,13 @@ public class PlayableButton extends Button {
 
             this.velocity = 220;
 
-            this.setOnMousePressed(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    arm();
-                }
-            });
-
-            this.setOnMouseReleased(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    disArm();
-                }
-            });
         } else {
             System.out.println("You passed the wrong parameters for a " + handler.getClass() + "!");
             this.handler = null;
         }
     }
 
-    public void init(Handler handler, short noteNum, short instrument) {
+    public void init(MIDIHandler handler, short noteNum, short instrument) {
         if (handler.getClass().equals(MIDIHandler.class)) {
             this.handler = handler;
             this.midi = true;
@@ -82,19 +91,6 @@ public class PlayableButton extends Button {
 
             this.velocity = 220;
 
-            this.setOnMousePressed(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    arm();
-                }
-            });
-
-            this.setOnMouseReleased(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    disArm();
-                }
-            });
         } else {
             System.out.println("You passed the wrong parameters for a " + handler.getClass() + "!");
             this.handler = null;
@@ -104,8 +100,13 @@ public class PlayableButton extends Button {
 
 
     // ************************************* Audio sample constructors
-    public void init(Handler handler, String samplePath) {
+    public void init(SampleHandler handler, String samplePath, float gain) {
         if (handler.getClass().equals(SampleHandler.class)) {
+            this.handler = handler;
+            this.midi = false;
+            this.isOn = false;
+            this.filepath = samplePath;
+            this.gain = gain;
 
         } else {
             System.out.println("You passed the wrong parameters for a " + handler.getClass() + "!");
@@ -136,6 +137,11 @@ public class PlayableButton extends Button {
                 params.put("velocity", (int) this.velocity);
                 handler.play(params);
             } else {
+                Map<String, Object> params = new HashMap<>();
+                params.put("filepath", this.filepath);
+                params.put("buttonID", this.buttonID);
+                params.put("gain", this.gain);
+                handler.play(params);
             }
 
             System.out.println("armed");

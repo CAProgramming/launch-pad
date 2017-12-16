@@ -8,7 +8,7 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
-public class SampleHandler implements Handler<String> {
+public class SampleHandler implements Handler<Object> {
     private Map<String, Thread> threads;
 
     public SampleHandler() {
@@ -23,18 +23,19 @@ public class SampleHandler implements Handler<String> {
     }
 
     @Override
-    public void play(Map<String, String> params) {
-        if (!params.isEmpty() && params.size() == 3 && !threads.containsKey(params.get("button_id"))) {
+    public void play(Map<String, Object> params) {
+        if (!params.isEmpty() && params.size() == 3 && !threads.containsKey(params.get("buttonID"))) {
             Runnable runnable = new Runnable() {
                 public void run() {
                     try {
-                        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(params.get("filepath")));
+                        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
+                                new File((String) params.get("filepath")));
                         Clip clip = AudioSystem.getClip();
                         clip.open(audioInputStream);
                         clip.setFramePosition(0);
 
                         FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                        gainControl.setValue(Float.parseFloat(params.get("gain")));
+                        gainControl.setValue((float) params.get("gain"));
 
                         long duration = clip.getMicrosecondLength() / 1000;
                         final int interval = 500;
@@ -63,8 +64,8 @@ public class SampleHandler implements Handler<String> {
                 }
             };
 
-            threads.put(params.get("button_id"), new Thread(runnable, "playingThread"));
-            threads.get(params.get("button_id")).start();
+            threads.put((String) params.get("buttonID"), new Thread(runnable, "playingThread"));
+            threads.get(params.get("buttonID")).start();
         } else {
             System.out.println("Parameters were not usable.");
         }
@@ -72,8 +73,8 @@ public class SampleHandler implements Handler<String> {
     }
 
     @Override
-    public void stop(Map<String, String> params) {
-        threads.get(params.get("button_id")).interrupt();
+    public void stop(Map<String, Object> params) {
+        threads.get(params.get("buttonID")).interrupt();
     }
 
 //    //**************************************
@@ -82,7 +83,7 @@ public class SampleHandler implements Handler<String> {
 //        Map<String, String> params = new HashMap<>();
 //        params.put("filepath", "./resources/test.wav");
 //        params.put("gain", Float.toString((float) 5.0));
-//        params.put("button_id", "1");
+//        params.put("buttonID", "1");
 //        test1.play(params);
 //        test1.stop(params);
 //    }
