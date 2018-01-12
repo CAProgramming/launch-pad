@@ -2,7 +2,11 @@
 Java GUI for a raspberry pi powered launchpad
 
 ### Tasks
-- 4x4 grid of buttons + 1 misc button
+- Hardware parts:
+  - <a href = "https://www.adafruit.com/product/1611">4x4 button keypad</a>
+  - <a href = "https://www.adafruit.com/product/1616">4x4 PCB LED driver</a>
+  - <a href = "https://www.adafruit.com/product/780">25 Pack LED</a>
+  - Launchpad case made by DEMONS (3D-printing or wood cutting)
 - play/export MIDI messages, normal audio
 - reassign button functions
 - multiple setup profiles
@@ -13,3 +17,5 @@ Java GUI for a raspberry pi powered launchpad
 - connect over micro usb
   - act as MIDI device
   - act as USB device
+
+#### <a href = "https://learn.adafruit.com/portable-trellis-sound-board">An interesting model by others</a>
