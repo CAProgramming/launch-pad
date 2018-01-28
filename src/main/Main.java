@@ -18,7 +18,7 @@ public class Main extends Application {
         Parent root = loader.load();
         Scene scene = new Scene(root,400,400);
 
-        File f = new File("style.css");
+        File f = new File("main/style.css");
         System.out.println(f.getAbsolutePath());
         scene.getStylesheets().clear();
         scene.getStylesheets().add(f.getPath());
