@@ -9,6 +9,7 @@ Java GUI for a raspberry pi powered launchpad
   - Launchpad case made by DEMONS (3D-printing or wood cutting)
 - play/export MIDI messages, normal audio
 - reassign button functions
+- looping
 - multiple setup profiles
 
 #### Secondary tasks (on raspberry pi)
