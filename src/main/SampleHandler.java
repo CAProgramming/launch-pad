@@ -8,6 +8,11 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
+/*
+    Sample handler would crash if a button is pressed with both mouse and keyboard, but this would not be a big
+    problem as the user would only be able to press a button in a single way.
+ */
+
 public class SampleHandler implements Handler<Object> {
     private Map<String, Thread> threads;
 
