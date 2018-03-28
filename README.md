@@ -18,5 +18,3 @@ Java GUI for a raspberry pi powered launchpad
 - connect over micro usb
   - act as MIDI device
   - act as USB device
-
-#### <a href = "https://learn.adafruit.com/portable-trellis-sound-board">An interesting model by others</a>
